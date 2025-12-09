@@ -54,14 +54,15 @@
       </div>
     </div>
     <div>
-      <button class="iconBtn" id="voiceGuide" data-explain="Guide सुनने के लिए दबाएँ">Guide</button>
+      <button class="iconBtn" id="voiceGuide" data-explain="Guide सुनने के लिए दबाएँ.   ये वेबसाइट सिर्फ आपके लिये ही बनाया गया आपकी सुरक्षा और निजी जानकारियों को दयान रखते हुए मैं एक लोकल A I मॉडल हू जिसको मेरे एडमिन ने ही digin किया है लोकल जानकारी को विस्तार से यूजर को समझने के लिये आपकी गोपनीयता को ऑनलाइन होते हुए सुक्षित है भी 
+अब मुद्दे की बात     आप अपनी बातो अस्पष्ट रूप से कह सकती है मैं आपकी बातो का जबाब देने लाइक मॉडल इतमाल नहीं करती पर आपका massage को एडमिन तक पहुंचने के काम है मेरा आपकी निजी जानकारी हमेसा हमारी सुरक्षा की जिम्मेदारी है ">Guide</button>
     </div>
   </header>
 
   <!-- LOCK CARD (always first) -->
   <div id="lockCard" class="card">
     <div class="cardHeader">
-      <div class="title"><strong>साइट लॉक</strong><div class="muted" style="font-size:12px;margin-left:8px;">पासवर्ड डालने पर ही अंदर जा सकते हैं</div></div>
+      <div class="title"><strong>साइट लॉक</strong><div class="muted" style="font-size:12px;margin-left:8px;"> कृप्या सही पासवर्ड डाले, पासवर्ड डालने पर ही अंदर जा सकते हैं</div></div>
       <div class="controls">
         <button class="btn" id="lockInfo" data-explain="पासवर्ड बदलने के लिए index.html में ADMIN_PASSWORD बदलिए।">Info</button>
       </div>
@@ -251,9 +252,9 @@ unlockBtn.addEventListener('click', ()=> attemptUnlock(unlockInput.value.trim())
 demoBtn.addEventListener('click', ()=> { unlockInput.value = ADMIN_PASSWORD; attemptUnlock(ADMIN_PASSWORD); });
 
 function attemptUnlock(val){
-  if(!val){ speak("कृपया पासवर्ड भरें"); showToast("Password required"); return; }
+  if(!val){ speak("कृपया पासवर्ड भरें "); showToast("Password required"); return; }
   if(val === ADMIN_PASSWORD){
-    speak("स्वागत है, साइट खुल रही है");
+    speak("स्वागत है, साइट खुल रही है यह साइट स्पेशल लोग के लिये ");
     lockCard.style.display = 'none';
     mainGrid.style.display = 'block';
     // show today's admin message
