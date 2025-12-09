@@ -3,582 +3,414 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Priyanka — Private Love Assistant</title>
+<title>Priyanka — Private Love Assistant (Secure)</title>
 <style>
   :root{
-    --bg1: #0b1020;
-    --glass: rgba(255,255,255,0.03);
-    --accent1: #ff6bcb; /* pink */
-    --accent2: #8b5cf6; /* purple */
-    --accent3: #60a5fa; /* blue */
-    --muted: #9aa7bd;
-    --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    --radius: 14px;
+    --bg1:#041225; --card:#071428; --accent1:#ff6bcb; --accent2:#8b5cf6; --accent3:#60a5fa; --muted:#9aa7bd;
+    --radius:14px;
   }
-  html,body{height:100%; margin:0; font-family: system-ui, "Inter", Arial; background: linear-gradient(180deg,#041021 0%, #081427 100%); color:#eef7ff; -webkit-font-smoothing:antialiased;}
-  .wrap{max-width:980px; margin:18px auto; padding:14px;}
-  header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px;}
-  .brand{display:flex; gap:12px; align-items:center;}
-  .logo{
-    width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-    background: linear-gradient(135deg,var(--accent1), var(--accent2)); box-shadow: 0 6px 18px rgba(139,92,246,0.16);
-    font-weight:700; font-size:20px;
-  }
-  h1{margin:0; font-size:18px;}
-  .subtitle{color:var(--muted); font-size:13px;}
-
-  /* Layout grid for boxes */
-  .grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
-  @media(min-width:900px){ .grid{ grid-template-columns: 1fr 1fr; } }
-
-  /* Card */
-  .card{
-    background:var(--card-bg); border-radius:var(--radius); padding:12px; border:1px solid rgba(255,255,255,0.03);
-    box-shadow: 0 8px 26px rgba(2,6,23,0.6);
-    transition: transform .22s cubic-bezier(.2,.9,.2,1), opacity .22s;
-  }
-  .card.minimized{ height:56px; overflow:hidden; padding:8px; cursor:pointer; }
-  .cardHeader{display:flex; align-items:center; justify-content:space-between; gap:8px; }
-  .title{display:flex; gap:10px; align-items:center;}
-  .title h2{margin:0; font-size:15px;}
-  .title .muted{font-size:12px; color:var(--muted);}
-
-  .controls{ display:flex; gap:8px; align-items:center;}
-  .btn{ background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px 10px; border-radius:10px; color:var(--muted); font-size:13px; }
-  .iconBtn{ background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#001; border:none; padding:8px 10px; border-radius:10px; font-weight:700; cursor:pointer;}
-  .small{ padding:6px 8px; font-size:13px; }
-
-  /* Admin message area */
-  #adminContent{ margin-top:10px; font-size:15px; color:#ffe8f8; line-height:1.4; }
-  .meta{ font-size:12px; color:var(--muted); margin-top:6px; }
-
-  /* Chat area */
-  .chatWindow{ max-height:320px; overflow:auto; margin-top:10px; padding-right:6px; }
-  .bubble{ padding:10px 12px; border-radius:12px; margin-bottom:8px; display:inline-block; max-width:86%; }
-  .bubble.user{ background: linear-gradient(90deg,#ffd6e8, #ff9bd6); color:#2a0a1e; border-bottom-right-radius:4px; }
-  .bubble.assistant{ background: rgba(255,255,255,0.03); color:#e6f8ff; border-bottom-left-radius:4px; border:1px solid rgba(255,255,255,0.02); }
-  .chatRow{ display:flex; gap:8px; align-items:flex-end; }
-  .chatRow.user { justify-content:flex-end; }
-  .chatRow.assistant { justify-content:flex-start; }
-
-  .inputRow{ display:flex; gap:8px; margin-top:8px; align-items:center; }
-  .textIn{ flex:1; padding:10px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); color:inherit; min-height:44px; resize:none; font-size:14px; }
-
-  /* Media area */
-  .mediaActions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-  .mediaPreview{ margin-top:10px; border-radius:10px; overflow:hidden; max-height:320px; background:rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; }
-
-  /* explain tooltip */
-  .explainTip{ font-size:13px; color:var(--muted); margin-top:6px; }
-
-  footer{ margin-top:14px; color:var(--muted); text-align:center; font-size:13px; }
-
-  /* animations */
-  .fadeIn{ animation: fadeIn .28s ease; }
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0);} }
-
-  /* minimize icon */
-  .minBtn{ background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer; }
-
+  html,body{height:100%;margin:0;font-family:system-ui,Inter,Arial;background:linear-gradient(180deg,#041021 0%, #081427 100%);color:#eef7ff;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:18px auto;padding:14px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;}
+  .brand{display:flex;gap:12px;align-items:center;}
+  .logo{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent1),var(--accent2));font-weight:700;font-size:20px;}
+  h1{margin:0;font-size:18px;}
+  .subtitle{color:var(--muted);font-size:13px;}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 26px rgba(2,6,23,0.6);transition:transform .22s,opacity .2s;}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px;}
+  @media(min-width:900px){.grid{grid-template-columns:1fr 1fr;}}
+  .cardHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .title{display:flex;gap:10px;align-items:center;}
+  .title h2{margin:0;font-size:15px;}
+  .muted{color:var(--muted);font-size:13px;}
+  .controls{display:flex;gap:8px;align-items:center;}
+  .btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:var(--muted);font-size:13px;}
+  .iconBtn{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#001;border:none;padding:8px 10px;border-radius:10px;font-weight:700;cursor:pointer;}
+  .minBtn{background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer;}
+  /* chat */
+  .chatWindow{max-height:320px;overflow:auto;margin-top:10px;padding-right:6px;}
+  .chatRow{display:flex;gap:8px;margin-bottom:8px;}
+  .chatRow.user{justify-content:flex-end;}
+  .bubble{padding:10px 12px;border-radius:12px;display:inline-block;max-width:86%;}
+  .bubble.user{background:linear-gradient(90deg,#ffd6e8,#ff9bd6);color:#2a0a1e;border-bottom-right-radius:4px;}
+  .bubble.assistant{background:rgba(255,255,255,0.03);color:#e6f8ff;border-bottom-left-radius:4px;border:1px solid rgba(255,255,255,0.02);}
+  .inputRow{display:flex;gap:8px;margin-top:8px;align-items:center;}
+  .textIn{flex:1;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:inherit;min-height:44px;resize:none;font-size:14px;}
+  .mediaPreview{margin-top:10px;border-radius:10px;overflow:hidden;max-height:320px;background:rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;}
+  .explainTip{font-size:13px;color:var(--muted);margin-top:6px;}
+  footer{margin-top:14px;color:var(--muted);text-align:center;font-size:13px;}
+  .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(0,0,0,0.6);padding:10px 14px;border-radius:999px;color:#fff;font-size:14px;z-index:9999;opacity:0;transition:opacity .2s;}
+  .card.minimized{height:56px;overflow:hidden;padding:8px;cursor:pointer;}
 </style>
 </head>
 <body>
-
 <div class="wrap">
   <header>
     <div class="brand">
       <div class="logo">❤</div>
       <div>
         <h1>Priyanka — आपका Private Assistant</h1>
-        <div class="subtitle">Touch any item to hear an explanation • Mobile friendly • Love theme</div>
+        <div class="subtitle">Secure • Love theme • Tap-to-explain</div>
       </div>
     </div>
-
     <div>
-      <button class="iconBtn" id="voiceGuide" data-explain="तेज़ मार्गदर्शक — बॉक्स्स के बारे में आवाज़ में बतायेगा">Guide</button>
+      <button class="iconBtn" id="voiceGuide" data-explain="Guide सुनने के लिए दबाएँ">Guide</button>
     </div>
   </header>
 
-  <!-- LOCK (simple) -->
-  <div id="lockArea" class="card">
+  <!-- LOCK CARD (always first) -->
+  <div id="lockCard" class="card">
     <div class="cardHeader">
-      <div class="title"><strong>साइट लॉक</strong><div class="muted" style="font-size:12px;">पासवर्ड डालकर खोलें</div></div>
+      <div class="title"><strong>साइट लॉक</strong><div class="muted" style="font-size:12px;margin-left:8px;">पासवर्ड डालने पर ही अंदर जा सकते हैं</div></div>
       <div class="controls">
-        <button class="btn" id="showPassHint" data-explain="पासवर्ड बदलने के लिए GitHub पर index.html में ADMIN_PASSWORD बदलिए।">Pass hint</button>
+        <button class="btn" id="lockInfo" data-explain="पासवर्ड बदलने के लिए index.html में ADMIN_PASSWORD बदलिए।">Info</button>
       </div>
     </div>
     <div style="margin-top:10px;">
       <input id="unlockInput" class="textIn" placeholder="पासवर्ड लिखें..." type="password" aria-label="unlock">
-      <div style="display:flex; gap:8px; margin-top:8px;">
-        <button class="iconBtn" id="unlockBtn" data-explain="Unlock बटन दबाकर साइट खोलें">Open</button>
-        <button class="btn" id="tryDemo" data-explain="Demo के लिए डेमो पासवर्ड इस्तेमाल करें (demo123)">Demo</button>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="iconBtn" id="unlockBtn" data-explain="Unlock करने के लिए दबाएँ">Unlock</button>
+        <button class="btn" id="demoBtn" data-explain="Demo पासवर्ड से खोलें">Demo</button>
       </div>
-      <div class="explainTip">Tip: पासवर्ड GitHub में `<span style="font-family:monospace">ADMIN_PASSWORD</span>` से बदलें</div>
+      <div class="explainTip">टिप: पासवर्ड बदलने के लिए GitHub पर index.html में `ADMIN_PASSWORD` बदलें।</div>
     </div>
   </div>
 
-  <div class="grid" style="margin-top:12px;">
-    <!-- Admin Panel -->
-    <section id="adminPanel" class="card fadeIn">
-      <div class="cardHeader">
-        <div class="title">
-          <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;">A</div>
-          <div>
-            <h2>Admin Panel</h2>
-            <div class="muted">Admin द्वारा repo → messages.json से अपडेट या यहाँ admin: कमांड से भेजें</div>
+  <!-- MAIN GRID (hidden until unlock) -->
+  <div id="mainGrid" style="display:none;">
+    <div class="grid">
+      <!-- Admin Panel (READ-ONLY, code-only editable) -->
+      <section id="adminPanel" class="card">
+        <div class="cardHeader">
+          <div class="title">
+            <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;">A</div>
+            <div>
+              <h2>Admin Message (Read-only)</h2>
+              <div class="muted">Admin messages are defined inside the code (readonly). हर दिन एक नया संदेश दिखेगा।</div>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="minBtn" data-toggle="admin">–</button>
           </div>
         </div>
-        <div class="controls">
-          <button class="minBtn" data-toggle="admin" title="Minimize">–</button>
-          <button class="btn" id="adminDownload" data-explain="messages.json डाउनलोड करने के लिए">Download</button>
+
+        <div id="adminBody" style="margin-top:10px;">
+          <div id="adminMessage" style="font-size:15px;color:#ffe8f8;line-height:1.4;">Loading admin message...</div>
+          <div id="adminTime" class="muted" style="margin-top:8px;"></div>
+          <div class="explainTip" style="margin-top:10px;">Admin messages केवल कोड में बदलें — UI पर edit का ऑप्शन नहीं है।</div>
         </div>
-      </div>
+      </section>
 
-      <div id="adminBody" style="margin-top:10px;">
-        <div id="adminContent">Loading admin message...</div>
-        <div class="meta" id="adminMeta"></div>
-
-        <div style="margin-top:10px;">
-          <textarea id="adminInput" class="textIn" placeholder="Admin लिखने के लिए यहाँ admin: जारी रखें"></textarea>
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button class="iconBtn" id="sendAdmin">Send as Admin</button>
-            <button class="btn" id="announceAdmin">Announce (TTS)</button>
+      <!-- User Chat -->
+      <section id="userPanel" class="card">
+        <div class="cardHeader">
+          <div class="title">
+            <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(90deg,var(--accent3),#60ffd3);display:flex;align-items:center;justify-content:center;font-weight:700;">U</div>
+            <div>
+              <h2>User Chat</h2>
+              <div class="muted">User messages saved locally • Assistant replies lovingly</div>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="minBtn" data-toggle="user">–</button>
+            <button class="btn" id="clearChatBtn" data-explain="Chat साफ़ करने के लिए">Clear</button>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- User Chat -->
-    <section id="userPanel" class="card fadeIn">
-      <div class="cardHeader">
-        <div class="title">
-          <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(90deg,var(--accent3),#60ffd3);display:flex;align-items:center;justify-content:center;font-weight:700;">U</div>
-          <div>
-            <h2>User Chat</h2>
-            <div class="muted">User ❤️ type कर के send करेगा — Assistant प्यार से जवाब देगा</div>
+        <div id="userBody" style="margin-top:10px;">
+          <div id="chatWindow" class="chatWindow" aria-live="polite"></div>
+
+          <div class="inputRow">
+            <textarea id="userInput" class="textIn" placeholder="अपना संदेश लिखें — user❤️"></textarea>
+            <button class="iconBtn" id="sendUser" data-explain="Send करें">❤</button>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:8px;">
+            <button class="btn" id="downloadUser" data-explain="Local saved messages डाउनलोड करें">Download</button>
+            <button class="btn" id="showSavedBtn" data-explain="Saved messages दिखाएँ">Saved</button>
+          </div>
+
+          <div id="savedArea" style="margin-top:8px;"></div>
+        </div>
+      </section>
+
+      <!-- Media Panel -->
+      <section id="mediaPanel" class="card">
+        <div class="cardHeader">
+          <div class="title">
+            <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;font-weight:700;">M</div>
+            <div>
+              <h2>Media & Content</h2>
+              <div class="muted">Photo / Video / Audio preview • URL डालें और Load करें</div>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="minBtn" data-toggle="media">–</button>
           </div>
         </div>
-        <div class="controls">
-          <button class="minBtn" data-toggle="user" title="Minimize">–</button>
-          <button class="btn" id="clearChat" data-explain="Chat साफ़ करने के लिए">Clear</button>
-        </div>
-      </div>
 
-      <div id="userBody" style="margin-top:10px;">
-        <div class="chatWindow" id="chatWindow" aria-live="polite"></div>
+        <div id="mediaBody" style="margin-top:10px;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input id="mediaUrl" class="textIn" placeholder="Photo/Video/Audio URL डालें (youtube, mp4, mp3, jpg...)" style="flex:1;">
+            <button class="btn" id="loadMediaBtn" data-explain="URL डालकर Load दबाएँ">Load</button>
+          </div>
 
-        <div class="inputRow">
-          <textarea id="userInput" class="textIn" placeholder="यहाँ अपना संदेश लिखें — user❤️"></textarea>
-          <button class="iconBtn" id="sendUser" data-explain="Send बटन दबाने पर संदेश भेजें">❤</button>
-        </div>
+          <div style="display:flex;gap:8px;margin-top:8px;">
+            <button class="btn" id="playAudioBtn">Play audio</button>
+            <button class="btn" id="playVideoBtn">Play video</button>
+            <button class="btn" id="showPhotoBtn">Show photo</button>
+          </div>
 
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          <button class="btn" id="downloadMsgs" data-explain="सभी user messages डाउनलोड करें">Download</button>
-          <button class="btn" id="showSaved" data-explain="Saved messages दिखाएँ">Saved</button>
-        </div>
-
-        <div id="savedArea" style="margin-top:8px;"></div>
-      </div>
-    </section>
-
-    <!-- Media Panel -->
-    <section id="mediaPanel" class="card fadeIn">
-      <div class="cardHeader">
-        <div class="title">
-          <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;font-weight:700;">M</div>
-          <div>
-            <h2>Media & Content</h2>
-            <div class="muted">Photos, Video, Audio या Text content डालें — Smooth play</div>
+          <div id="mediaPreview" class="mediaPreview">
+            <div class="muted">No media loaded.</div>
           </div>
         </div>
-        <div class="controls">
-          <button class="minBtn" data-toggle="media" title="Minimize">–</button>
-        </div>
-      </div>
+      </section>
+    </div>
 
-      <div id="mediaBody" style="margin-top:10px;">
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <input id="mediaUrl" class="textIn" placeholder="Photo/Video/Audio URL डालें (youtube, mp4, mp3, jpg...)" style="flex:1;">
-          <button class="btn" id="loadMedia" data-explain="URL डालकर Load दबाएँ">Load</button>
-        </div>
-
-        <div class="mediaActions">
-          <button class="btn" id="playAudio" data-explain="यदि audio है तो play करेगा">Play audio</button>
-          <button class="btn" id="playVideo" data-explain="यदि वीडियो है तो play करेगा">Play video</button>
-          <button class="btn" id="showPhoto" data-explain="यदि image है तो preview दिखाएगा">Show photo</button>
-        </div>
-
-        <div id="mediaPreview" class="mediaPreview">
-          <div class="muted">No media loaded.</div>
-        </div>
-      </div>
-    </section>
+    <footer>Built for you • Admin messages code-only • Tap any item with "Guide" to hear explanation</footer>
   </div>
 
-  <footer>Built for you • Tap any item to hear its explanation • Admin via messages.json or admin: command</footer>
+  <div id="toast" class="toast"></div>
 </div>
 
 <script>
-/* ---------------------------
-   Configuration
-   --------------------------- */
-/* Change ADMIN_PASSWORD here if want to change lock password (update in GitHub too).
-   Note: If you edit on GitHub, replace the value and commit index.html */
-const ADMIN_PASSWORD = "demo123"; // change this to your preferred password (e.g., "5555" or "mySecret123")
+/* =========================
+   CONFIGURATION (EDIT HERE)
+   ========================= */
 
-/* messages.json path */
-const MESSAGES_JSON = "messages.json";
+/* Lock password — change here to update site password.
+   This is the single place to change password (edit index.html on GitHub). */
+const ADMIN_PASSWORD = "DTYPL5133"; // ← change this value in code to update password
 
-/* ---------------------------
-   Helpers: TTS
-   --------------------------- */
-function getVoice(prefer='hi'){
-  const voices = speechSynthesis.getVoices();
-  if(!voices || voices.length===0) return null;
-  // prefer Hindi or English
-  let v = voices.find(v=>/hi|hindi/i.test(v.lang));
-  if(!v) v = voices.find(v=>/en/i.test(v.lang));
-  return v || voices[0];
-}
+/* Admin messages (code-only): keep array of messages.
+   System will pick a message daily (based on date) — daily rotation.
+   You can add as many messages as you want. These are read-only in UI. */
+const ADMIN_MESSAGES = [
+  "नमस्ते — Priyanka में आपका स्वागत है! ❤️",
+  "आज का संदेश: खुद पर भरोसा रखो, सब अच्छा होगा।",
+  "मधुर शब्द बाँटो, प्यार पाओ।",
+  "छोटे छोटे कदम बड़े बदलाव लाते हैं।",
+  "आज एक मुस्कान किसी का दिन बना सकती है — मुस्कुराओ! ❤️",
+  "सिकंदर बनो पर दिल नरम रखो।",
+  "हर दिन एक नया मौका है — कुछ अच्छा करें।"
+];
+
+/* Optional: custom date-specific overrides (YYYY-MM-DD -> message index)
+   If you want a specific message for a date, add here:
+   "2025-12-25": 3   // will pick ADMIN_MESSAGES[3]
+*/
+const ADMIN_DATE_OVERRIDES = {
+  // "2025-12-25": 4
+};
+
+/* =========================
+   Helpers: TTS, toast, explain
+   ========================= */
 function speak(text){
+  if(!('speechSynthesis' in window)) return;
   try{
-    if(!('speechSynthesis' in window)) return;
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(String(text));
-    const voice = getVoice();
-    if(voice) u.voice = voice;
+    // prefer Hindi voice if available
+    const voices = speechSynthesis.getVoices();
+    let v = voices.find(v=>/hi|hindi/i.test(v.lang)) || voices.find(v=>/en/i.test(v.lang)) || voices[0];
+    if(v) u.voice = v;
+    u.lang = v?.lang || 'hi-IN';
     u.rate = 1;
-    u.lang = voice?.lang || 'hi-IN';
     speechSynthesis.speak(u);
-  }catch(e){
-    console.warn("TTS err", e);
-  }
+  }catch(e){ console.warn(e); }
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._tm);
+  t._tm = setTimeout(()=> t.style.opacity = '0', 3000);
 }
 
-/* ---------------------------
-   Quick tap-to-explain: elements having data-explain attribute
-   --------------------------- */
+/* Tap-to-explain: data-explain attribute */
 document.addEventListener('click', function(ev){
   const el = ev.target.closest('[data-explain]');
   if(el){
-    const text = el.getAttribute('data-explain');
-    if(text){
-      speak(text);
-      // small ephemeral toast (visual)
-      showToast(text);
-    }
+    const txt = el.getAttribute('data-explain');
+    if(txt){ speak(txt); showToast(txt); }
   }
 });
 
-/* small toast */
-let toastTimer;
-function showToast(msg){
-  let t = document.getElementById('___toast');
-  if(!t){
-    t = document.createElement('div'); t.id='___toast';
-    t.style.position='fixed'; t.style.left='50%'; t.style.bottom='18px';
-    t.style.transform='translateX(-50%)'; t.style.background='rgba(0,0,0,0.6)';
-    t.style.padding='10px 14px'; t.style.borderRadius='999px'; t.style.color='#fff';
-    t.style.fontSize='14px'; t.style.zIndex=9999;
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity = '1';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>{ t.style.opacity='0'; }, 3000);
-}
-
-/* ---------------------------
-   Lock logic
-   --------------------------- */
-const lockArea = document.getElementById('lockArea');
+/* =========================
+   Lock behavior
+   ========================= */
+const lockCard = document.getElementById('lockCard');
 const unlockInput = document.getElementById('unlockInput');
 const unlockBtn = document.getElementById('unlockBtn');
-const tryDemo = document.getElementById('tryDemo');
+const demoBtn = document.getElementById('demoBtn');
+const mainGrid = document.getElementById('mainGrid');
 
 unlockBtn.addEventListener('click', ()=> attemptUnlock(unlockInput.value.trim()));
-tryDemo.addEventListener('click', ()=> { unlockInput.value = ADMIN_PASSWORD; attemptUnlock(ADMIN_PASSWORD); });
+demoBtn.addEventListener('click', ()=> { unlockInput.value = ADMIN_PASSWORD; attemptUnlock(ADMIN_PASSWORD); });
 
 function attemptUnlock(val){
   if(!val){ speak("कृपया पासवर्ड भरें"); showToast("Password required"); return; }
   if(val === ADMIN_PASSWORD){
     speak("स्वागत है, साइट खुल रही है");
-    lockArea.style.display = 'none';
-    // focus first input
-    setTimeout(()=> document.getElementById('userInput').focus(), 300);
-    loadAdminMessage();
+    lockCard.style.display = 'none';
+    mainGrid.style.display = 'block';
+    // show today's admin message
+    displayDailyAdmin();
   } else {
-    speak("गलत पासवर्ड, फिर कोशिश करें");
+    speak("गलत पासवर्ड, पुनः प्रयास करें");
     showToast("Wrong password");
-    // small shake
-    lockArea.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], {duration:480});
+    lockCard.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], {duration:380});
   }
 }
 
-/* ---------------------------
-   Admin: load messages.json (if present)
-   --------------------------- */
-const adminContent = document.getElementById('adminContent');
-const adminMeta = document.getElementById('adminMeta');
-async function loadAdminMessage(){
-  try{
-    const res = await fetch(MESSAGES_JSON + "?noCache=" + Date.now());
-    if(!res.ok) throw new Error("no file");
-    const data = await res.json();
-    adminContent.innerHTML = data.message || "कोई संदेश नहीं";
-    if(data.timestamp) adminMeta.textContent = new Date(data.timestamp).toLocaleString();
-    else adminMeta.textContent = '';
-    speak("एक नया admin संदेश लोड हुआ");
-  }catch(e){
-    adminContent.innerHTML = "Admin message नहीं मिला। Repo में messages.json डालें।";
-    adminMeta.textContent = "";
+/* =========================
+   Admin daily message logic (code-only)
+   ========================= */
+function getDailyAdminIndex(){
+  const today = new Date();
+  const y = today.getFullYear();
+  const m = (today.getMonth()+1).toString().padStart(2,'0');
+  const d = today.getDate().toString().padStart(2,'0');
+  const dateKey = `${y}-${m}-${d}`;
+  // override?
+  if(ADMIN_DATE_OVERRIDES[dateKey] !== undefined){
+    return ADMIN_DATE_OVERRIDES[dateKey] % ADMIN_MESSAGES.length;
   }
+  // deterministic rotation: use numeric date to pick index
+  const numeric = Number(`${y}${m}${d}`);
+  return numeric % ADMIN_MESSAGES.length;
+}
+function displayDailyAdmin(){
+  const idx = getDailyAdminIndex();
+  const msg = ADMIN_MESSAGES[idx] || "कोई संदेश उपलब्ध नहीं।";
+  const el = document.getElementById('adminMessage');
+  const meta = document.getElementById('adminTime');
+  el.textContent = msg;
+  meta.textContent = new Date().toLocaleString();
+  // speak once when opened
+  speak("Admin संदेश: " + msg);
 }
 
-/* Download messages.json */
-document.getElementById('adminDownload').addEventListener('click', async ()=>{
-  try{
-    const res = await fetch(MESSAGES_JSON + "?noCache=" + Date.now());
-    const text = await res.text();
-    const blob = new Blob([text], {type:"application/json"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = 'messages.json'; a.click(); URL.revokeObjectURL(url);
-    speak("messages.json डाउनलोड किया गया");
-  }catch(e){
-    speak("messages.json डाउनलोड नहीं हुआ");
-  }
-});
-
-/* Admin send via Textarea (admin:) or Send as admin */
-document.getElementById('sendAdmin').addEventListener('click', ()=>{
-  const txt = document.getElementById('adminInput').value.trim();
-  if(!txt){ speak("कृपया admin message लिखें"); return; }
-  // if starts with admin:, strip
-  const msg = txt.toLowerCase().startsWith('admin:') ? txt.slice(6).trim() : txt;
-  showAdminMessage(msg);
-  speak(msg);
-  document.getElementById('adminInput').value = '';
-});
-
-document.getElementById('announceAdmin').addEventListener('click', ()=>{
-  const txt = document.getElementById('adminInput').value.trim();
-  if(!txt){ speak("कोई संदेश नहीं"); return; }
-  const msg = txt.toLowerCase().startsWith('admin:') ? txt.slice(6).trim() : txt;
-  speak(msg);
-});
-
-/* show admin message in UI */
-function showAdminMessage(msg){
-  adminContent.innerHTML = msg;
-  adminMeta.textContent = new Date().toLocaleString();
-  // also add to assistant chat
-  addChatMessage('assistant', msg);
-}
-
-/* ---------------------------
-   Minimize / Toggle Panels
-   --------------------------- */
+/* =========================
+   Minimize toggles
+   ========================= */
 document.querySelectorAll('.minBtn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    const target = btn.getAttribute('data-toggle');
-    const panel = document.getElementById(target + 'Panel') || document.getElementById(target + 'Panel') ;
-    const body = document.getElementById(target + 'Body');
-    if(!body) return;
-    const card = panel;
-    if(card.classList.contains('minimized')){
-      card.classList.remove('minimized');
-      body.style.display = 'block';
+    const t = btn.getAttribute('data-toggle'); // admin | user | media
+    const panel = document.getElementById(t + 'Panel');
+    const body = document.getElementById(t + 'Body') || panel.querySelector('#'+t+'Body') || panel.querySelector('#'+t+'Body') ;
+    // simpler: toggle .minimized on section
+    if(panel.classList.contains('minimized')){
+      panel.classList.remove('minimized');
+      // show children (simple)
+      Array.from(panel.children).forEach(ch => ch.style.display = '');
       btn.textContent = '–';
     } else {
-      card.classList.add('minimized');
-      body.style.display = 'none';
+      panel.classList.add('minimized');
+      // keep header visible, hide everything else
+      Array.from(panel.children).forEach((ch, i) => {
+        if(i>0) ch.style.display = 'none';
+      });
       btn.textContent = '+';
     }
   });
 });
 
-/* ---------------------------
-   Chat system (user messages)
-   --------------------------- */
+/* =========================
+   Chat: user messages (localStorage)
+   ========================= */
 const chatWindow = document.getElementById('chatWindow');
 const userInput = document.getElementById('userInput');
-const sendUserBtn = document.getElementById('sendUser');
+const sendUser = document.getElementById('sendUser');
 const savedArea = document.getElementById('savedArea');
 
-function getUserMsgs(){ return JSON.parse(localStorage.getItem('priyanka_user_msgs_v1')||'[]'); }
-function saveUserMsgs(arr){ localStorage.setItem('priyanka_user_msgs_v1', JSON.stringify(arr)); }
-
-function renderSaved(){
+function getUserMsgs(){ return JSON.parse(localStorage.getItem('priyanka_user_v2')||'[]'); }
+function saveUserMsgs(arr){ localStorage.setItem('priyanka_user_v2', JSON.stringify(arr)); }
+function renderSaved(){ 
   const arr = getUserMsgs();
-  if(arr.length===0) savedArea.innerHTML = "<div class='muted'>कोई saved message नहीं</div>";
-  else {
-    savedArea.innerHTML = arr.map(m=>`<div style="padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;">
-      <div style="font-size:14px">${escapeHtml(m.text)}</div>
-      <div class="meta">${m.time}</div>
-    </div>`).join('');
-  }
+  if(arr.length===0) savedArea.innerHTML = "<div class='muted'>No saved messages.</div>";
+  else savedArea.innerHTML = arr.map(m=>`<div style="padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;">
+    <div style="font-size:14px">${escapeHtml(m.text)}</div>
+    <div class="muted">${m.time}</div>
+  </div>`).join('');
 }
-
-function addChatMessage(who, text){
+function addChat(who,text){
   const row = document.createElement('div');
-  row.className = 'chatRow ' + (who==='user' ? 'user' : 'assistant');
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble ' + (who==='user' ? 'user' : 'assistant');
-  bubble.innerText = text;
-  row.appendChild(bubble);
-  chatWindow.appendChild(row);
+  row.className = 'chatRow ' + (who==='user'? 'user':'assistant');
+  const b = document.createElement('div'); b.className = 'bubble ' + (who==='user'? 'user':'assistant'); b.innerText = text;
+  row.appendChild(b); chatWindow.appendChild(row);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
-
 function escapeHtml(s){ return String(s).replaceAll('<','&lt;').replaceAll('>','&gt;'); }
 
-/* Basic assistant reply logic (simple rule-based, can be enhanced) */
 function assistantReply(userText){
   const t = userText.toLowerCase();
-  // if admin command
-  if(t.startsWith('admin:')){
-    const adminMsg = userText.slice(6).trim();
-    showAdminMessage(adminMsg);
-    return;
-  }
-  // small canned responses
-  if(t.includes('hello') || t.includes('hi') || t.includes('namaste') ) return "हैल्लो! मैं कैसे मदद करूँ?";
-  if(t.includes('kaise') || t.includes('how')) return "मैं ठीक हूँ — आप बताइए कैसे मदद चाहिए।";
-  if(t.includes('pyar') || t.includes('love') || t.includes('❤️')) return "आप बहुत खास हो ❤️ — मैं हमेशा आपके साथ हूँ।";
-  if(t.includes('photo')) return "Photo जोड़ने के लिए Media box में URL डालिये और Show photo दबाइये।";
-  if(t.includes('video')) return "Video play करने के लिए Media box में URL डालिये और Play video दबाइये।";
-  // default echo + friendly
-  return "मैंने आपकी बात सुनी — \""+ userText + "\" — क्या आप और बताएँ?";
+  if(t.includes('hello')||t.includes('hi')||t.includes('namaste')) return "हैलो! मैं आपकी कैसे मदद करूँ? ❤️";
+  if(t.includes('pyar')||t.includes('love')||t.includes('❤️')) return "आप बेहद खास हो — मैं हमेशा साथ हूँ ❤️";
+  if(t.includes('photo')) return "Media में photo URL डालकर Show photo दबाएँ।";
+  if(t.includes('video')) return "Media में video URL डालकर Play video दबाएँ।";
+  return "मैंने आपकी बात सुनी: \""+ userText + "\" — बताइए और क्या चाहिए?";
 }
 
-/* send user */
-sendUserBtn.addEventListener('click', () => {
+sendUser.addEventListener('click', ()=>{
   const txt = userInput.value.trim();
-  if(!txt){ speak("कृपया संदेश लिखें"); return; }
-  addChatMessage('user', txt);
+  if(!txt){ speak("कृपया संदेश लिखें"); showToast("Enter a message"); return; }
+  addChat('user', txt);
   // save
-  const arr = getUserMsgs();
-  arr.push({ text: txt, time: new Date().toLocaleString() });
-  saveUserMsgs(arr);
+  const arr = getUserMsgs(); arr.push({text:txt, time:new Date().toLocaleString()}); saveUserMsgs(arr);
   renderSaved();
   // assistant reply
   const reply = assistantReply(txt);
-  setTimeout(()=> {
-    addChatMessage('assistant', reply);
-    speak(reply);
-  }, 600);
+  setTimeout(()=>{ addChat('assistant', reply); speak(reply); }, 600);
   userInput.value = '';
 });
-
-document.getElementById('clearChat').addEventListener('click', ()=>{
-  chatWindow.innerHTML = '';
-  speak("Chat cleared");
-});
-
-document.getElementById('downloadMsgs').addEventListener('click', ()=>{
+document.getElementById('clearChatBtn').addEventListener('click', ()=>{ chatWindow.innerHTML=''; speak("Chat cleared"); });
+document.getElementById('downloadUser').addEventListener('click', ()=>{
   const data = JSON.stringify(getUserMsgs(), null, 2);
   const blob = new Blob([data], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'user-messages.json'; a.click(); URL.revokeObjectURL(url);
-  speak("User messages डाउनलोड हुआ");
+  const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='user-messages.json'; a.click(); URL.revokeObjectURL(url);
+  speak("Saved messages डाउनलोड हो रहे हैं");
 });
+document.getElementById('showSavedBtn').addEventListener('click', ()=>{ renderSaved(); showToast("Saved messages shown"); });
 
-document.getElementById('showSaved').addEventListener('click', ()=>{
-  renderSaved();
-  showToast("Saved messages दिखाए गये");
-});
-
-/* initial render saved */
 renderSaved();
 
-/* ---------------------------
-   Media loading & preview
-   --------------------------- */
-const mediaUrlInput = document.getElementById('mediaUrl');
+/* =========================
+   Media loading
+   ========================= */
 const mediaPreview = document.getElementById('mediaPreview');
-
-document.getElementById('loadMedia').addEventListener('click', ()=>{
-  const url = mediaUrlInput.value.trim();
-  if(!url){ speak("कृपया media url डालें"); return; }
+document.getElementById('loadMediaBtn').addEventListener('click', ()=>{
+  const url = document.getElementById('mediaUrl').value.trim();
+  if(!url){ speak("कृपया media url डालें"); showToast("Enter URL"); return; }
   loadMedia(url);
 });
-
 function loadMedia(url){
-  // YouTube short link handling (embed)
   if(/youtube\.com|youtu\.be/.test(url)){
-    // convert to embed
-    let id = '';
-    if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split(/[?&]/)[0];
-    else if(url.includes('v=')) id = url.split('v=')[1].split('&')[0];
-    if(id){ mediaPreview.innerHTML = `<iframe width="100%" height="260" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`; speak("YouTube video loaded"); return; }
+    let id=''; if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split(/[?&]/)[0]; else if(url.includes('v=')) id = url.split('v=')[1].split('&')[0];
+    if(id){ mediaPreview.innerHTML = `<iframe width="100%" height="260" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`; speak("YouTube loaded"); return; }
   }
-  // mp4 or webm video
-  if(/\.mp4|\.webm|\.ogg/i.test(url)){
-    mediaPreview.innerHTML = `<video controls style="width:100%;max-height:320px;" src="${url}"></video>`;
-    speak("Video ready to play");
-    return;
-  }
-  // audio
-  if(/\.mp3|\.wav|\.m4a|audio/i.test(url)){
-    mediaPreview.innerHTML = `<audio controls style="width:100%;" src="${url}"></audio>`;
-    speak("Audio ready to play");
-    return;
-  }
-  // image
-  if(/\.jpg|\.jpeg|\.png|\.gif|\.svg/i.test(url)){
-    mediaPreview.innerHTML = `<img src="${url}" style="width:100%;height:auto;display:block;">`;
-    speak("Image preview ready");
-    return;
-  }
-  // fallback: show as text link
-  mediaPreview.innerHTML = `<div style="padding:12px;">Preview not supported. <a href="${url}" target="_blank">Open link</a></div>`;
-  speak("Link loaded — preview may not be available");
+  if(/\.mp4|\.webm|\.ogg/i.test(url)){ mediaPreview.innerHTML = `<video controls style="width:100%;max-height:320px;" src="${url}"></video>`; speak("Video loaded"); return; }
+  if(/\.mp3|\.wav|\.m4a|audio/i.test(url)){ mediaPreview.innerHTML = `<audio controls style="width:100%;" src="${url}"></audio>`; speak("Audio loaded"); return; }
+  if(/\.jpg|\.jpeg|\.png|\.gif|\.svg/i.test(url)){ mediaPreview.innerHTML = `<img src="${url}" style="width:100%;height:auto;display:block;">`; speak("Image loaded"); return; }
+  mediaPreview.innerHTML = `<div style="padding:12px;">Preview not supported. <a href="${url}" target="_blank">Open link</a></div>`; speak("Link loaded");
 }
+document.getElementById('playAudioBtn').addEventListener('click', ()=>{ const el=mediaPreview.querySelector('audio'); if(el){ el.play(); speak("Audio play"); } else speak("No audio loaded"); });
+document.getElementById('playVideoBtn').addEventListener('click', ()=>{ const el=mediaPreview.querySelector('video'); if(el){ el.play(); speak("Video play"); } else speak("No video loaded"); });
+document.getElementById('showPhotoBtn').addEventListener('click', ()=>{ const el=mediaPreview.querySelector('img'); if(el) speak("Photo preview"); else speak("No image loaded"); });
 
-document.getElementById('playAudio').addEventListener('click', ()=>{
-  const el = mediaPreview.querySelector('audio');
-  if(el){ el.play(); speak("Audio play हो रहा है"); } else speak("कृपया पहले audio लोड करें");
-});
-document.getElementById('playVideo').addEventListener('click', ()=>{
-  const el = mediaPreview.querySelector('video');
-  if(el){ el.play(); speak("Video play हो रहा है"); } else speak("कृपया पहले video लोड करें");
-});
-document.getElementById('showPhoto').addEventListener('click', ()=>{
-  const el = mediaPreview.querySelector('img');
-  if(el) speak("Photo दिख रहा है"); else speak("कृपया पहले image URL डालें और Load करें");
-});
-
-/* ---------------------------
-   UI explain guide button
-   --------------------------- */
+/* Voice guide */
 document.getElementById('voiceGuide').addEventListener('click', ()=>{
-  const guide = "यह Priyanka assistant है। ऊपर के तीन कार्ड — Admin, User Chat, और Media हैं. हर कार्ड के ऊपर minus आइकन से आप उसे छोटा कर सकते हैं. Admin में आप admin संदेश GitHub messages.json से लोड कर सकते हैं या यहाँ admin: लिखकर भेज सकते हैं. User Chat में लिखें और ❤ दबाकर भेजें; Assistant प्यार से जवाब देगा. Media बॉक्स में कोई भी image, audio या video का URL डालकर Load कर लें.";
-  speak(guide);
-  showToast("Guide चलाया गया");
+  const guide = "यह Priyanka assistant है। सबसे पहले लॉक खुलना चाहिए। Admin Message readonly है और हर दिन का संदेश दिखेगा। User Chat में message भेजें और ❤ दबाएँ। Media box में URL डालकर Load करें।";
+  speak(guide); showToast("Guide चलाया गया");
 });
 
-/* ---------------------------
-   Data-explain elements initialization
-   (Optionally add more explanations)
-   --------------------------- */
-document.querySelectorAll('[data-explain]').forEach(el=>{
-  // add touch hint (small)
-  el.style.touchAction = "manipulation";
-});
+/* prefetch voices */
+if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = ()=>{}; }
 
-/* ---------------------------
-   Small safety: prefetch voices (for some browsers)
-   --------------------------- */
-if('speechSynthesis' in window){
-  speechSynthesis.onvoiceschanged = ()=>{ getVoice(); };
-}
-
-/* ---------------------------
-   On load: hide some body sections until unlock
-   --------------------------- */
-document.addEventListener('DOMContentLoaded', ()=>{
-  // nothing else for now
-});
+/* load admin message if unlocked on page load */
+document.addEventListener('DOMContentLoaded', ()=>{ /* nothing auto — waits unlock */ });
 
 </script>
 </body>
